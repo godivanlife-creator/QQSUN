@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐶QQ桑-樂Q班長 的專屬網頁</title>
+    <style>
+        :root {
+            --main-color: #4ECDC4; /* 活潑的藍綠色 */
+            --light-color: #E6F7F6;
+            --dark-text: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            width: 85%;
+            max-width: 380px;
+            padding: 40px 20px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.15); /* 陰影顏色與主色搭配 */
+            text-align: center;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .profile-img {
+            font-size: 80px;
+            width: 140px;
+            height: 140px;
+            line-height: 140px;
+            background: #fff;
+            margin: 0 auto 20px;
+            display: block;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        h1 {
+            color: var(--main-color);
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #555;
+            margin: 15px 0 25px;
+            line-height: 1.5;
+        }
+
+        .info-box {
+            background: #fdfdfd;
+            border: 1.5px solid #eee;
+            border-radius: 20px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .btn {
+            display: block;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-call {
+            background: #4CAF50;
+            color: white;
+            font-size: 18px;
+        }
+
+        .btn-ig {
+            background: var(--main-color);
+            color: white;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 動畫設定 */
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="profile-img">🐶</div>
+    
+    <h1>我是QQ桑-樂Q班長</h1>
+
+    <p class="tagline">
+        樂Q家愛揪團出遊！<br>
+        歡迎大家一起來玩 (玩) ❤️
+    </p>
+
+    <a href="tel:0985531557" class="btn btn-call">📞 緊急聯絡家人</a>
+    
+    <a href="https://www.instagram.com/beloved_qq?igsh=bGN2Mzd5bmhlYjVp" target="_blank" class="btn btn-ig">📸 我的 IG 日常</a>
+    
+    <div style="margin-top: 30px; font-size: 12px; color: #bbb;">NFC Smart Tag Powered</div>
+</div>
+
+</body>
+</html>
