@@ -9,6 +9,7 @@
             --main-color: #4ECDC4; /* 活潑的藍綠色 */
             --light-color: #E6F7F6;
             --dark-text: #333;
+            --btn-sms: #007aff;
         }
 
         body {
@@ -27,7 +28,7 @@
             max-width: 380px;
             padding: 40px 20px;
             border-radius: 40px;
-            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.15); /* 陰影顏色與主色搭配 */
+            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.15);
             text-align: center;
             animation: slideUp 0.8s ease-out;
         }
@@ -56,15 +57,6 @@
             line-height: 1.5;
         }
 
-        .info-box {
-            background: #fdfdfd;
-            border: 1.5px solid #eee;
-            border-radius: 20px;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
         .btn {
             display: block;
             padding: 15px;
@@ -73,6 +65,18 @@
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* 藍色簡訊通報按鈕 */
+        .btn-sms {
+            background: var(--btn-sms);
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 6px 15px rgba(0, 122, 255, 0.3);
         }
 
         .btn-call {
@@ -90,7 +94,14 @@
             transform: scale(0.95);
         }
 
-        /* 動畫設定 */
+        .loading {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--main-color);
+            font-weight: bold;
+        }
+
         @keyframes floating {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
@@ -111,8 +122,11 @@
 
     <p class="tagline">
         樂Q家愛揪團出遊！<br>
-        歡迎大家一起來玩 (玩) ❤️
+        歡迎大家一起來玩 ❤️
     </p>
+
+    <button class="btn btn-sms" onclick="sendSMSLocation()">📍 簡訊通報主人位置</button>
+    <div id="loadingText" class="loading">正在定位中...請稍候</div>
 
     <a href="tel:0985531557" class="btn btn-call">📞 緊急聯絡家人</a>
     
@@ -120,6 +134,42 @@
     
     <div style="margin-top: 30px; font-size: 12px; color: #bbb;">NFC Smart Tag Powered</div>
 </div>
+
+<script>
+    function sendSMSLocation() {
+        const loading = document.getElementById('loadingText');
+        loading.style.display = 'block';
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                
+                // 產生 Google 地圖網址
+                const mapUrl = "http://maps.google.com/maps?q=" + lat + "," + lng;
+                
+                // 設定收件人與內容
+                const phoneNumber = "0985531557";
+                const message = encodeURIComponent("【QQ桑尋寵通報】我發現了QQ桑！目前位置：" + mapUrl);
+                
+                // 喚起手機簡訊介面
+                window.location.href = "sms:" + phoneNumber + "?body=" + message;
+                loading.style.display = 'none';
+            }, (error) => {
+                loading.style.display = 'none';
+                alert("無法取得精確定位，將直接開啟簡訊。");
+                window.location.href = "sms:0985531557?body=" + encodeURIComponent("【QQ桑尋寵通報】我發現了QQ桑，請與我聯繫。");
+            }, { 
+                enableHighAccuracy: true, 
+                timeout: 8000, 
+                maximumAge: 0 
+            });
+        } else {
+            alert("您的裝置不支援定位功能。");
+            loading.style.display = 'none';
+        }
+    }
+</script>
 
 </body>
 </html>
